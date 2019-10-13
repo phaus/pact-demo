@@ -1,1 +1,1 @@
-include 'product-service','product-details-service'
+include 'product-service+pact','product-details-service'

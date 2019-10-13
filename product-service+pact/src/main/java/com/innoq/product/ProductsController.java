@@ -24,8 +24,9 @@ public class ProductsController {
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
     public Product fetchProductPrice(@PathVariable final long id) {
-        URI productDetailsUri = URI.create("http://localhost:10100/productdetails/" + id);
+        URI productDetailsUri = URI.create("http://localhost:10100/productdetails/1");
         return new Product(id, "Foo Product", detailsFetcher.fetchDetails(productDetailsUri));
+
     }
 
 }
