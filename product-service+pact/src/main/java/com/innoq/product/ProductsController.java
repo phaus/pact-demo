@@ -28,8 +28,15 @@ public class ProductsController {
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
     public Product fetchProductPrice(@PathVariable final long id) {
         Log.info("got fetchProduct request for id " + id);
-        URI productDetailsUri = URI.create("http://localhost:10100/productdetails/" + id);
+        URI productDetailsUri = URI.create(getDetailsSericeUrl() + "/" + id);
         return new Product(id, "Foo Product", detailsFetcher.fetchDetails(productDetailsUri));
     }
 
+    private String getDetailsSericeUrl() {
+        String value = System.getenv("DETAILS_SERVICE_URL");
+        if (value == null) {
+            return "http://localhost:10100/productdetails";
+        }
+        return value;
+    }
 }
