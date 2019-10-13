@@ -3,6 +3,7 @@ package com.innoq.product;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
+import java.util.logging.Logger;
 
 import com.innoq.product.adapter.ProductDetailsFetcher;
 import com.innoq.product.model.Product;
@@ -19,14 +20,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RestController
 public class ProductsController {
 
+    Logger Log = Logger.getLogger(ProductsController.class.getName());
+
     @Autowired
     private ProductDetailsFetcher detailsFetcher;
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
     public Product fetchProductPrice(@PathVariable final long id) {
-        URI productDetailsUri = URI.create("http://localhost:10100/productdetails/1");
+        Log.info("got fetchProduct request for id " + id);
+        URI productDetailsUri = URI.create("http://localhost:10100/productdetails/" + id);
         return new Product(id, "Foo Product", detailsFetcher.fetchDetails(productDetailsUri));
-
     }
 
 }
